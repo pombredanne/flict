@@ -20,3 +20,6 @@ loc:
 	@printf "Python:   %4s\n" `find . -name "*.py" | xargs wc -l | tail -1 | sed 's,total,,g'`
 	@printf "Bash:     %4s\n" `find . -name "*.sh" | xargs wc -l | tail -1 | sed 's,total,,g'`
 	@printf "Total:    %4s\n" `find . -name "*.py" -o -name "*.sh" | xargs wc -l | tail -1 | sed 's,total,,g'`
+
+docker-test:
+	cd devel && make test

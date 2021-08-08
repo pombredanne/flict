@@ -1,6 +1,6 @@
 FROM python:3.6
 
-# FOSS Compliance Utils / compliance-tool
+# flict
 #
 # SPDX-FileCopyrightText: 2021 Henrik Sandklef
 #
@@ -12,15 +12,15 @@ FROM python:3.6
 # update main system
 #
 #######################################################
-#RUN apt-get update && apt-get install -y bzip2 xz-utils zlib1g libxml2-dev libxslt1-dev p7zip-full jq
+
 RUN  apt-get update && apt-get install -y jq
-#python3-pip
 
 #######################################################
 #
 # Flict
 #
 #######################################################
+
 RUN echo && echo "---=== Installing pip ===---" && echo
 RUN python3 -m pip install --upgrade pip
 
@@ -38,6 +38,3 @@ RUN cd flict && pip install -r requirements-dev.txt
 
 RUN echo && echo "---=== Testing ===---" && echo
 RUN cd flict/tests && ./all.sh
-
-#ENV PATH=$HOME/scancode-toolkit-${SCANCODE_VERSION}:$HOME/aboutcode-toolkit:$HOME/deltacode:$HOME/compliance-utils/bin:$HOME/scancode-manifestor:/usr/local/bin:/:/compliance-scripts/copyright-statements:$PATH
-

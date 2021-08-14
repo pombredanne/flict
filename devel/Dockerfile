@@ -36,5 +36,11 @@ RUN cd flict && python3 setup.py install && flict --version
 RUN echo && echo "---=== Installing development requirements ===---" && echo
 RUN cd flict && pip install -r requirements-dev.txt 
 
-RUN echo && echo "---=== Testing ===---" && echo
-RUN cd flict/tests && ./all.sh
+#
+# only when developing support
+#
+RUN echo && echo "---=== Switching branch ===---" && echo
+RUN cd flict && git checkout test-image-docker
+
+RUN echo && echo "---=== Run CI tests ===---" && echo
+RUN cd flict && ./devel/do-ci-stuff.py

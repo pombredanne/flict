@@ -20,7 +20,7 @@ import flict.flictlib.report
 
 from flict.flictlib.format.factory import FormatFactory
 
-from flict.flictlib.return_codes import FLictException
+from flict.flictlib.return_codes import FlictException
 from flict.flictlib.return_codes import ReturnCodes
 
 import json
@@ -382,7 +382,7 @@ def simplify(args):
     try:
         license = flict_setup.license_handler.license_expression_list(lic_str)
     except:
-        raise FLictException(ReturnCodes.RET_INVALID_EXPRESSSION,
+        raise FlictException(ReturnCodes.RET_INVALID_EXPRESSSION,
                              "Invalid expression to simplify: " + str(args.license_expression))
 
     formatted = flict_setup.formatter.format_simplified(
@@ -409,7 +409,7 @@ def verify(args):
     elif present_and_set(args, 'license_expression'):
         verify_license_expression(args, flict_setup)
     else:
-        raise FLictException(ReturnCodes.RET_MISSING_ARGS,
+        raise FlictException(ReturnCodes.RET_MISSING_ARGS,
                              "Missing argument to the verify command")
 
 
@@ -429,17 +429,13 @@ def verify_license_expression(args, flict_setup):
 
         flict_print(flict_setup, formatted)
     except:
-        raise FLictException(ReturnCodes.RET_INVALID_EXPRESSSION,
+        raise FlictException(ReturnCodes.RET_INVALID_EXPRESSSION,
                              "Could not parse expression \"" + str(args.license_expression) + "\"")
 
 
 def verify_project_file(args, flict_setup):
 
-    try:
-        project = Project(args.project_file, flict_setup.license_handler)
-    except:
-        raise FLictException(ReturnCodes.RET_INVALID_PROJECT,
-                             "Missing or invalid project file.")
+    project = Project(args.project_file, flict_setup.license_handler)
 
     formatted = ""
     if args.list_project_licenses:
@@ -485,7 +481,7 @@ def display_compatibility(args):
         compats = flict_setup.compatibility.check_compatibilities(
             licenses, args.extended_licenses)
     except:
-        raise FLictException(ReturnCodes.RET_INVALID_EXPRESSSION,
+        raise FlictException(ReturnCodes.RET_INVALID_EXPRESSSION,
                              "Could not parse license expression: " + str(args.licenses))
 
     formatted = flict_setup.formatter.format_compats(compats)
@@ -506,7 +502,7 @@ def suggest_outbound_candidate(args):
         output_outbound_license(flict_setup, lic_str,
                                 args.output_format, args.extended_licenses)
     except:
-        raise FLictException(ReturnCodes.RET_INVALID_EXPRESSSION,
+        raise FlictException(ReturnCodes.RET_INVALID_EXPRESSSION,
                              "Invalid license expression: " + str(args.licenses))
 
 
@@ -520,7 +516,7 @@ def main():
     if 'which' in args:
         try:
             args.func(args)
-        except FLictException as e:
+        except FlictException as e:
             flict_exit(e.error_code(), e.error_message())
 
     else:

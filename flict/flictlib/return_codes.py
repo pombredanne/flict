@@ -29,9 +29,10 @@ class ReturnCodes(IntEnum):
 
     RET_INVALID_PROJECT = 10
     RET_INVALID_EXPRESSSION = 11
+    RET_FILE_NOT_FOUND = 12
 
 
-class FLictException(Exception):
+class FlictException(Exception):
 
     def __init__(self, error_code, error_message):
         self._error_code = error_code
